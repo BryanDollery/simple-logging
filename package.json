@@ -1,6 +1,6 @@
 {
   "name": "@bryandollery/simple-logging",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "description": "A really basic logging object that produces json logs.",
   "main": "src/index.js",
