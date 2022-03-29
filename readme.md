@@ -8,13 +8,13 @@ A really basic logging object that produces json logs.
 
 ### Install
 ```bash
-npm i simple-logs
+npm i simple-logging
 ```
 
 ### Import
 
 ```javascript
-import { log } from "simple-logs";
+import { log } from "simple-logging";
 ```
 
 
