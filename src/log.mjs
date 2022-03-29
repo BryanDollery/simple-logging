@@ -21,4 +21,4 @@ const log = {
 Object.freeze(log);
 Object.seal(log);
 
-exports.log = log;
+export { log };
