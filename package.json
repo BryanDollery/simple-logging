@@ -2,12 +2,17 @@
   "name": "@bryandollery/simple-logging",
   "version": "1.0.1",
   "description": "A really basic logging object that produces json logs.",
-  "type": "module",
   "main": "src/index.js",
   "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BryanDollery/simple-logging.git"
+  },
+  "exports": {
+    ".": {
+      "require": "./src/index.js",
+      "import": "./src/index.mjs"
+    }
   },
   "keywords": [
     "log",
