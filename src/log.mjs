@@ -13,6 +13,7 @@ let ctx = `pid=${process.pid}`;
 
 const log = {
   setCtx: newCtx => (ctx = newCtx),
+  getCtx: () => ctx,
   debug: report => dump(report, "DEBUG"),
   info: report => dump(report, "INFO"),
   error: report => dump(report, "ERROR")
