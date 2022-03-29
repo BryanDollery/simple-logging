@@ -1,7 +1,7 @@
 {
-  "name": "simple-logging",
+  "name": "@bryandollery/simple-logging",
   "version": "1.0.0",
-  "description": "Produced structred json logs",
+  "description": "A really basic logging object that produces json logs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,11 +12,11 @@
   },
   "keywords": [
     "log",
-    "logs",
-    "logging"
+    "logging",
+    "logs"
   ],
   "author": "Bryan Dollery",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/BryanDollery/simple-logging/issues"
   },
