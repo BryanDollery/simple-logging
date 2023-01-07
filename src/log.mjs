@@ -1,4 +1,7 @@
 let ctx = process.env.HOSTNAME ? `pod=${process.env.HOSTNAME}` : `pid=${process.pid}`;
+let isRedacted = true;
+let redactionRegex = /"password":".*?"/g;
+let redactionSubst = '"password":"redacted"';
 
 const levels = {
   DEBUG: ['DEBUG', 'INFO', 'WARN', 'ERROR'],
@@ -34,14 +37,20 @@ const _log = (level, ...args) => {
   }
 
   const beforeRedaction = JSON.stringify(logObject);
-  const redacted = beforeRedaction;
+  const redacted = beforeRedaction.replaceAll(redactionRegex, redactionSubst);
 
-  console.log(JSON.stringify(logObject));
+  console.log(isRedacted ? redacted : beforeRedaction);
 };
 
 const log = {
   setCtx: newCtx => (ctx = newCtx),
-  getCtx: () => ctx,
+  getCtx: _ => ctx,
+  setRedacted: redacted => isRedacted = redacted,
+  getRedacted: _ => isRedacted,
+  setRedactionRegex: regex => redactionRegex = regex,
+  getRedactionRegex: _ => redactionRegex,
+  setRedactionSubst: subst => redactionSubst = subst,
+  getRedactionSubst: _ => redactionSubst,
   debug: (...args) => _log("DEBUG", ...args),
   info: (...args) => _log("INFO", ...args),
   error: (...args) => _log("ERROR", ...args),
