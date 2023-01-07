@@ -1,13 +1,13 @@
 {
   "name": "@bryandollery/simple-logging",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "type": "module",
-  "description": "A really basic logging object that produces json logs.",
+  "description": "A really basic logging object that produces json logs",
   "main": "src/index.mjs",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BryanDollery/simple-logging.git"
+    "url": "https://github.com/BryanDollery/simple-logging.git"
   },
   "exports": {
     ".": {

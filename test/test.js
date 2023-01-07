@@ -1,0 +1,15 @@
+import { log } from "../src/index.mjs";
+log.debug('a');
+log.info('a', { b: 'b', c: [{ a: 'a' }, { b: 'b' }] }, 'wibble');
+log.warn({ message: 'wibble', things: { a: 'abc', b: 'def' } });
+log.error({ msg: "wibble" });
+log.error({ msg: "wibble", cause: { complex: 'thing' } });
+const myData = { a: 1, b: 2 };
+log.debug("debug something", myData);
+log.info({ msg: "this is my world", myData });
+log.debug({ a: 1 });
+log.setCtx('wobble');
+log.debug("wibble");
+log.debug('readact password 1', { username: 'user1', password: 'this is a secret' }, { username: 'user2', password: 'this is a secret too' });
+const myData2 = [{ username: 'user1', password: 'this is a secret' }, { username: 'user2', password: 'this is a secret too' }];
+log.debug('readact password 2', myData2);

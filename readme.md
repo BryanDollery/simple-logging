@@ -1,6 +1,6 @@
 # Description
 
-A really basic logging object that produces json logs. 
+A really basic logging object that produces json logs. If you want more serious logging, please check out the [Pino](https://www.npmjs.com/package/pino) project.
 
 
 ---
@@ -29,19 +29,53 @@ log.debug("hello world");
 To receive a log entry something like:
 
 ```json
-{"msg":"hello world","ctx":"pid=27143","level":"DEBUG","timestamp":"2022-03-29T09:14:09.863Z","time":1648545249863}
+{"message":"hello world","ctx":"pid=27143","level":"DEBUG","timestamp":"2022-03-29T09:14:09.863Z","time":1648545249863}
 ```
 
 Or, assuming you have an object, `data` that you want to log, you can do this:
 
 ```javascript
-log.info({msg: "this is my world", data});
+const myData = { a: 1, b: 2 };
+log.info({msg: "this is my world", myData});
+```
+
+to get
+
+```json
+{"message":"this is my world","data":{"myData":{"a":1,"b":2}},"ctx":"pid=273848","level":"INFO","date":1673046316278}
 ```
 
 
+Note that the logs always output 'message' as the message property name, but you're free to use 'message' or 'msg' as the property name in the object you pass to logging.
+
+To simplify your logging a bit, the log methods also accept a list of arguments. The first arg will be used as a message, and the rest will be placed in a property called 'data'.
+
+```javascript
+const myData = { a: 1, b: 2 };
+log.debug("debug something", myData);
+```
+
+Results in
+
+```json
+{"message":"debug something","data":[{"a":1,"b":2}],"ctx":"pid=273285","level":"DEBUG","date":1673046196590}
+```
+
+Finally, you can supress the message if you'd like by simply not including one:
+
+```javascript
+log.debug({ a: 1 });
+```
+
+Results in:
+
+```json
+{"data":{"a":1},"ctx":"pid=275022","level":"DEBUG","date":1673046566015}
+```
+
 ---
 # Interface
-The log object will accept `debug`, `info`, or `error` calls, each of which take only a single parameter, which can be a string or an object. If it's a string, then the string will be mapped to a `msg` property in the resulting log message.
+The log object will accept `debug`, `info`, `warn` or `error` calls, each of which take a list of arguments the first of which will be used as the message unless the only argument is an object, then the object will be searched for a property 'message' or 'msg'.
 
 The log object also accepts the following call:
 
@@ -49,11 +83,12 @@ The log object also accepts the following call:
 log.setCtx("my context");
 ```
 
-Which will add a `ctx` property to all logging messages from that point forward. I find this is helpful if set to a uuid once per application, as it then helps keep track of which instance of an application is logging (very useful for k8s).
+Which will set the `ctx` property to all logging messages from that point forward. I find this is helpful if set to a uuid once per application, as it then helps keep track of which instance of an application is logging (very useful for k8s).
 
-### Errors
-When logging an error, it's a good idea to pass a `cause` property. This will be treated well, I promise.
+By default, the context (`ctx`) is set to the environment variable HOSTNAME, if it exists, or the process id. The HOSTNAME thing is because this lib was created for use in applications running in kubernetes and sometimes its really helpful to know which pod is writing the logs. There are other ways of knowing the same thing, but our team have found this to be quite useful information to have available at a glance when logs have been aggregated.
 
+# Log Levels
+The log object pays attention to an environment varialbe called `LOG_LEVEL` and behaves as expected. This defaults to 'DEBUG' and accepts the values: `DEBUG`, `INFO`, `WARN` and `ERROR` in that order.
 
 ---
 # Notes:
@@ -64,7 +99,7 @@ The logging part of this lib uses `JSON.stringify()` to convert the log to a str
 
 * 2
 
-I find this library very useful when pushing my logs through jq for pretty printing using the following construct:
+I find this library very useful when pushing my nodejs logs through jq for pretty printing using the following construct:
 
 ```bash
 npm start | grep "^{" | jq
