@@ -1,9 +1,10 @@
 {
   "name": "@bryandollery/simple-logging",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "type": "module",
   "description": "A really basic logging object that produces json logs",
   "main": "src/index.mjs",
+  "types": "src/index.d.ts",
   "scripts": {},
   "repository": {
     "type": "git",

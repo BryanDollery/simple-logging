@@ -100,6 +100,7 @@ const redacted = beforeRedaction.replaceAll(redactionRegex, redactionSubst);
 So, if you're planning on using this feature for anything beyond very simple redaction, beware: here be dragons.
 
 # Notes:
+
 * 1
 
 The logging part of this lib uses `JSON.stringify()` to convert the log to a string. You must ensure that your objects are serializable in this way. They must not contain circular references.
@@ -122,3 +123,4 @@ If you want more serious logging, you should check out the [Pino](https://www.np
 * 1.0: Mar 2021 - Basic logging
 * 2.0: Jan 2022 - Simplified passing of data to be logged through the use of varialble argument lists. Added * logging levels. Removed timestamp: dates are now always iso formatted
 * 2.1: Jan 2022 - Added simple redaction
+* 2.1.2: Feb 2025 - Added typescript definitions
